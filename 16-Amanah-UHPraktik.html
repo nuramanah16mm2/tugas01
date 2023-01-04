@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>UH PRAKTEK Biodata Alumni</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+	<header>
+		<img src="Logo.png">
+		<p class="Judul">SMK NEGERI 2 PURWOKERTO</p>
+		<p class="dmi">DMI</p>
+	</header>
+	</div>
+	<div class="btn-wrapper">
+        <a class="btn">VISI MISI</a>
+        <a class="btn">JURUSAN</a>
+        <a class="btn">PPDB</a>
+		<a class="btn">BIODATA ALUMNI</a>
+    </div>
+</head>
+<body>
+	<table class="card-form" align="center" width="45%">
+		<tr>
+			<td>
+				<form name="biodata" method="POST" class="form">
+					<h1 align="center">BIODATA ALUMNI</h1>
+					<h1 align="center">SMK NEGERI 2 PURWOKERTO</h1>
+					<p>
+						<label>NIS :</label>
+						<input class="input" type="number" name="nis" id="val_nis" placeholder="Masukan NIS Anda..." />
+					</p>
+					<p>
+						<label>NAMA :</label>
+						<input class="input" type="text" name="nama" id="val_nama" placeholder="Masukan Nama Anda..." />
+					</p>
+					<p>
+						<label>TEMPAT LAHIR :</label>
+						<input class="input" type="text" name="tempat" id="val_tempat" placeholder="Masukan Tempat Lahir Anda..." />
+					</p>
+					<p>
+						<label>TANGGAL LAHIR :</label>
+						<input class="input" type="date" name="tanggal" id="val_tanggal"/>
+					</p>
+					<p>
+						<label>JENIS KELAMIN:</label>
+						<label><input type="radio" name="jenis_kelamin" value="laki-laki" id="val_kel" />Laki-laki</label>
+						<label><input type="radio" name="jenis_kelamin" value="perempuan" id="val_kel2" />Perempuan</label>
+					</p>
+					<p>
+						<label>KOMPETENSI KEAHLIAN :</label>
+						<select class="input" type="text" name="kompetensi_keahlian" id="val_kompetensi_keahlian">
+							<option value="KGSP">KGSP</option>
+							<option value="DPIB">DPIB</option>
+							<option value="TITL">TITL</option>
+							<option value="TOI">TOI</option>
+							<option value="TP">TP</option>
+							<option value="TAV">TAV</option>
+							<option value="TEI">TEI</option>
+							<option value="MM">MM</option>
+						</select>
+					</p>
+					<p>
+						<label>LULUS TAHUN :</label>
+						<select class="input" type="text" name="lulus_tahun" id="val_lulus_tahun">
+							<option value="2020">2020</option>
+							<option value="2021">2021</option>
+							<option value="2022">2022</option>
+							<option value="2023">2023</option>
+							<option value="2024">2024</option>
+							<option value="2025">2025</option>
+						</select>
+					</p>
+					<p>
+						<label>STATUS SEKARANG:</label>
+						<label><input type="radio" name="status_sekarang" value="Kerja" id="val_status_sekarang" />Kerja</label>
+						<label><input type="radio" name="status_sekarang" value="Kuliah" id="val_status_sekarang2" />Kuliah</label>
+						<label><input type="radio" name="status_sekarang" value="Wiraswasta" id="val_status_sekarang3" />Wiraswasta</label>
+						<label><input type="radio" name="status_sekarang" value="Lainnya" id="val_status_sekarang4" />Lainnya</label>
+					</p>
+					<p>
+						<label>ALAMAT :</label>
+						<label><textarea class="input" type="text" name="alamat" id="val_alamat" onkeyup="document.getElementById('counter').innerText = this.value.length" cols="30" rows="3" placeholder="Masukan Alamat Anda..."></textarea></label>
+					</p>
+					<p>
+						<label>Nomor Telephone :</label>
+						<input class="input" type="text" name="nomor_telephone" id="val_nomor_telephone" placeholder="Masukan no telephone Anda..." />
+					</p>
+					<p>
+						<label>Kesan dan Pesan :</label>
+						<label><textarea class="input" type="text" name="kesan_dan_pesan" id="val_kesan_dan_pesan" onkeyup="document.getElementById('counter').innerText = this.value.length" cols="30" rows="3" placeholder="Masukan kesan dan pesan Anda..."></textarea></label>
+					</p>
+					
+					<button class="button" onclick="exptoexcel('tabelinput', 'biodata')">Export</button>
+					<input class="button" type="button" onclick="kiriminput()" value="Simpan" />
+					<input class="button-batal" type="button" value="Hapus" id="hapus">
+                    
+				</form>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<table class="table-data" id="tabelinput" align="center" cellpadding="7">
+		<tr>
+			<td colspan="11"align="center"></td>
+		</tr>
+		<tr>
+			<td>NIS</td>
+			<td>NAMA</td>
+			<td>TEMPAT LAHIR</td>
+			<td>TANGGAL LAHIR</td>
+			<td>JENIS KELAMIN</td>
+			<td>KOMPETENSI KEAHLIAN</td>
+			<td>LULUS TAHUN</td>
+			<td>STATUS SEKARANG</td>
+			<td>ALAMAT</td>
+			<td>NOMOR TELEPHONE</td>
+			<td>KESAN DAN PESAN</td>
+		</tr>
+	</table>
+		<footer>
+			<div align="center">
+				<h2>Copyright @NurAmanah :)</h2>
+			</div>
+		</footer>
+
+	<script>
+		function exptoexcel(tableID, filename = ''){
+			var downloadLink;
+			var dataType = 'application/vnd.ms-excel';
+			var tableSelect = document.getElementById(tableID);
+			var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+		   
+			filename = filename?filename+'.xls':'excel_data.xls';
+		   
+			downloadLink = document.createElement("a");
+			
+			document.body.appendChild(downloadLink);
+			
+			if(navigator.msSaveOrOpenBlob){
+				var blob = new Blob(['\ufeff', tableHTML], {
+					type: dataType
+				});
+				navigator.msSaveOrOpenBlob( blob, filename);
+			}else{
+				downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+		   
+				downloadLink.download = filename;
+			   
+				downloadLink.click();
+			}
+		}
+		
+		function kiriminput(){
+			var u=document.forms['biodata']['nis'].value;
+			var x=document.forms['biodata']['nama'].value;
+			var y=document.forms['biodata']['tempat'].value;
+			var z=document.forms['biodata']['tanggal'].value;
+			var a=document.forms['biodata']['jenis_kelamin'].value;
+			var b=document.forms['biodata']['kompetensi_keahlian'].value;
+			var c=document.forms['biodata']['lulus_tahun'].value;
+			var d=document.forms['biodata']['status_sekarang'].value;
+			var e=document.forms['biodata']['alamat'].value;
+			var f=document.forms['biodata']['nomor_telephone'].value;
+			var g=document.forms['biodata']['kesan_dan_pesan'].value;
+			
+			if(u==null || u=="")
+			{
+				document.getElementById('val_nis').innerHTML="Isi Kolom NIS";
+				if(x==null || x=="")
+				{
+					document.getElementById('val_nama').innerHTML="Isi Kolom NAMA";
+				}else{
+					document.getElementById('val_nama').innerHTML="Sudah Benar";
+				}
+			}else{
+				document.getElementById('val_nis').innerHTML="Sudah Benar";
+				if(x==null || x=="")
+				{
+					document.getElementById('val_nama').innerHTML="Isi Kolom NAMA";
+				}else{
+					document.getElementById('val_nis').innerHTML="Sudah Benar";
+					
+					
+					var tabel = document.getElementById("tabelinput");
+					var row=tabel.insertRow(2);
+					var cell1 = row.insertCell(0);
+					var cell2 = row.insertCell(1);
+					var cell3 = row.insertCell(2);
+					var cell4 = row.insertCell(3);
+					var cell5 = row.insertCell(4);
+					var cell6 = row.insertCell(5);
+					var cell7 = row.insertCell(6);
+					var cell8 = row.insertCell(7);
+					var cell9 = row.insertCell(8);
+					var cell10 = row.insertCell(9);
+					var cell11 = row.insertCell(10);
+					
+					
+					cell1.innerHTML=u;
+					cell2.innerHTML=x;
+					cell3.innerHTML=y;
+					cell4.innerHTML=z;
+					cell5.innerHTML=a;
+					cell6.innerHTML=b;
+					cell7.innerHTML=c;
+					cell8.innerHTML=d;
+					cell9.innerHTML=e;
+					cell10.innerHTML=f;
+					cell11.innerHTML=g;
+				}
+			}
+		}
+		
+		const hapus = document.getElementById('hapus');
+		hapus.addEventListener('click', function handleClick() {
+
+		const val_nis = document.getElementById('val_nis');
+		val_nis.value = '';
+		
+		const val_nama = document.getElementById('val_nama');
+		val_nama.value = '';
+		
+		const val_tempat = document.getElementById('val_tempat');
+		val_tempat.value = '';
+		
+		const val_tanggal = document.getElementById('val_tanggal');
+		val_tanggal.value = '';
+		
+		const val_jenis_kelamin = document.getElementById('val_jenis_kelamin');
+		val_jenis_kelamin.value = '';
+		
+		const val_kompetensi_keahlian = document.getElementById('val_kompetensi_keahlian');
+		val_kompetensi_keahlian.value = 'KGSP';
+		
+		const val_lulus_tahun = document.getElementById('val_lulus_tahun');
+		val_lulus_tahun.value = '2020';
+		
+		const val_status_sekarang = document.getElementById('val_status_sekarang');
+		val_nis.value = '';
+
+		const val_alamat = document.getElementById('val_alamat');
+		val_alamat.value = '';
+
+		const val_nomor_telephone = document.getElementById('val_nomor_telephone');
+		val_nomor_telephone.value = '';
+
+		const val_kesan_dan_pesan = document.getElementById('val_kesan_dan_pesan');
+		val_kesan_dan_pesan.value = '';
+		
+		});
+	</script>
+</body>
+</html>
